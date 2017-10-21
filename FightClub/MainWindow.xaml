@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FightClub"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="MainWindow" Height="400.292" Width="731.805">
+    <Grid Margin="0,0,-0.2,-3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Label x:Name="FPName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">LOLOLOLOLO</Label>
+        <Label x:Name="SPName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">LOLOLOLOLO</Label>
+        <ProgressBar Grid.Column="0" Grid.Row="1" x:Name="FPHealt" Margin="20,0,20,0"></ProgressBar>
+        <ProgressBar Grid.Column="1" Grid.Row="1" x:Name="SPHealt" Margin="20,0,20,0"></ProgressBar>
+        <Border BorderThickness="0,0,1,0" Grid.RowSpan="3" BorderBrush="Black"></Border>
+        <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.RowSpan="3" Margin="20">
+            <TextBlock Grid.Column="2" Grid.RowSpan="3"  TextWrapping="Wrap"></TextBlock>
+        </Border>
         
     </Grid>
 </Window>
