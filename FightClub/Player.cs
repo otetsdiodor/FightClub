@@ -13,11 +13,11 @@ namespace FightClub
         Legs
     }
     
-    class Player
+    public class Player
     {
         private string Name; // Имя игрока
         private BodyParts Blocked; // Часть тела которую мы блокируем
-        private double HealthPoint; // Текущее кол-во ХП
+        private double HealthPoint = 100; // Текущее кол-во ХП
         public const double ImpactForce = 25; // Дамаг которые наности какждая атака
 
         //ПРОВЕРЬ А МОЖНО ЛИ РАБОТАТЬ С ОДНИМ ДЕЛЕГАТОМ ДЛЯ ВСЕ СОБЫТИЙ

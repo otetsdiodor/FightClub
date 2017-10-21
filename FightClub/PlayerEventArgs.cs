@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FightClub
 {
-    class PlayerEventArgs
+    public class PlayerEventArgs
     {
         public string Name;
         public double HealthPoint;
