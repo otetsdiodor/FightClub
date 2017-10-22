@@ -17,10 +17,12 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="FPName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">LOLOLOLOLO</Label>
-        <Label x:Name="SPName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">LOLOLOLOLO</Label>
+        <Label x:Name="FPName" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+        <Label x:Name="SPName" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
         <ProgressBar Grid.Column="0" Grid.Row="1" x:Name="FPHealt" Margin="20,0,20,0" Minimum="0" Maximum="100" Value="100"></ProgressBar>
         <ProgressBar Grid.Column="1" Grid.Row="1" x:Name="SPHealt" Margin="20,0,20,0" Minimum="0" Maximum="100" Value="100"></ProgressBar>
+        <Label x:Name="FPHpLabel" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"></Label>
+        <Label x:Name="SPHpLabel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"></Label>
         <Border BorderThickness="0,0,1,0" Grid.RowSpan="3" BorderBrush="Black"></Border>
         <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.RowSpan="3" Margin="20">
             <TextBlock Grid.Column="2" Grid.RowSpan="3"  TextWrapping="Wrap"></TextBlock>

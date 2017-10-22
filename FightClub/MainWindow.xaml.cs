@@ -45,6 +45,8 @@ namespace FightClub
             }
             FPName.Content = NameFirstPlayer;
             SPName.Content = NameSecondPlayer;
+            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
+            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
         }
 
         private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
@@ -65,6 +67,7 @@ namespace FightClub
 
             FirstPlayer.GetHit(ChoseBodyPaart());
             FPHealt.Value = FirstPlayer.GetHealth();
+            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
             foreach (var item in Hero.Children)
             {
                 if (item is Button b)
@@ -97,7 +100,10 @@ namespace FightClub
             {
                 SecondPlayer.GetHit(BodyParts.Legs);
             }
+
             SPHealt.Value = SecondPlayer.GetHealth();
+            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
+
             foreach (var item in Hero.Children)
             {
                 if (item is Button b2)
@@ -119,7 +125,7 @@ namespace FightClub
         private BodyParts ChoseBodyPaart()
         {
             Random r = new Random();
-            int x = r.Next(0, 2);
+            int x = r.Next(0, 3);
             return (BodyParts)x;
         }
 
