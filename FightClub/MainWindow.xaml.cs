@@ -20,43 +20,26 @@ namespace FightClub
     /// </summary>
     public partial class MainWindow : Window
     {
+        // Объекты двух игроков
         public Player FirstPlayer;
         public Player SecondPlayer;
+        // Плеер для воспроизведения звуков
         public MediaPlayer Media;
 
         public MainWindow(string NameFirstPlayer,string NameSecondPlayer)
         {
             FirstPlayer = new Player(NameFirstPlayer);
-            FirstPlayer.Wound += DoSmth;
-            FirstPlayer.Wound += Log;
-            FirstPlayer.Block += DoSmth1;
-            FirstPlayer.Block += Log;
-            FirstPlayer.Death += Died;
-            FirstPlayer.Death += Log;
-
             SecondPlayer = new Player(NameSecondPlayer);
-            SecondPlayer.Wound += Log;
-            SecondPlayer.Wound += DoSmth;
-            SecondPlayer.Block += DoSmth1;
-            SecondPlayer.Block += Log;
-            SecondPlayer.Death += Died;
-            SecondPlayer.Death += Log;
+            Subscribe();
             InitializeComponent();
-
-            foreach (var item in Comp.Children)
-            {
-                if (item is Button b1)
-                {
-                    b1.IsEnabled = false;
-                }
-            }
+            OnOffButtons(Comp.Children, false);
             FPName.Content = NameFirstPlayer;
             SPName.Content = NameSecondPlayer;
-            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
-            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
+            SPHpLabel.Content = SecondPlayer.Health + "HP";
+            FPHpLabel.Content = FirstPlayer.Health + "HP";
             Media = new MediaPlayer();
         }
-
+        // Защита от врага
         private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
         {
             Button b1 = (Button)sender;
@@ -73,27 +56,15 @@ namespace FightClub
                 FirstPlayer.SetBlock(BodyParts.Legs);
             }
 
-            foreach (var item in Hero.Children)
-            {
-                if (item is Button b)
-                {
-                    b.IsEnabled = false;
-                }
-            }
-
-            foreach (var item in Comp.Children)
-            {
-                if (item is Button b3)
-                {
-                    b3.IsEnabled = true;
-                }
-            }
+            OnOffButtons(Hero.Children, false);
+            OnOffButtons(Comp.Children, true);
 
             FirstPlayer.GetHit(ChoseBodyPaart());
-            FPHealt.Value = FirstPlayer.GetHealth();
-            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
+            FPHealt.Value = FirstPlayer.Health;
+            FPHpLabel.Content = FirstPlayer.Health + "HP";
 
         }
+        //Атакуем врага
         private void AttackBodyParts(object sender, RoutedEventArgs e)
         {
             SecondPlayer.SetBlock(ChoseBodyPaart());
@@ -111,24 +82,11 @@ namespace FightClub
                 SecondPlayer.GetHit(BodyParts.Legs);
             }
 
-            SPHealt.Value = SecondPlayer.GetHealth();
-            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
+            SPHealt.Value = SecondPlayer.Health;
+            SPHpLabel.Content = SecondPlayer.Health + "HP";
 
-            foreach (var item in Hero.Children)
-            {
-                if (item is Button b2)
-                {
-                    b2.IsEnabled = true;
-                }
-            }
-
-            foreach (var item in Comp.Children)
-            {
-                if (item is Button b1)
-                {
-                    b1.IsEnabled = false;
-                }
-            }
+            OnOffButtons(Hero.Children, true);
+            OnOffButtons(Comp.Children, false);
         }
 
         // Random chose body part for bot
@@ -141,19 +99,17 @@ namespace FightClub
 
         private void DoSmth(object sender,PlayerEventArgs e)
         {
-            //MessageBox.Show("Ай как больно то");
             Media.Open(new Uri(@"..\..\Res\damage.wav", UriKind.Relative));
             Media.Play();
         }
         private void DoSmth1(object sender, PlayerEventArgs e)
         {
-            //MessageBox.Show("хрен попадёшь!!!!");
             Media.Open(new Uri(@"..\..\Res\def.wav", UriKind.Relative));
             Media.Play();
         }
         private void Died(object sender, PlayerEventArgs e)
         {
-            if (e.Name == FirstPlayer.GetName())
+            if (e.Name == FirstPlayer.Name)
             {
                 Media.Open(new Uri(@"..\..\Res\lose.mp3", UriKind.Relative));
                 Media.Play();
@@ -173,42 +129,42 @@ namespace FightClub
         }
         private void Restart()
         {
-            FirstPlayer = new Player(FirstPlayer.GetName());
-            SecondPlayer = new Player(SecondPlayer.GetName());
+            FirstPlayer = new Player(FirstPlayer.Name);
+            SecondPlayer = new Player(SecondPlayer.Name);
+            Subscribe();
 
+            SPHpLabel.Content = SecondPlayer.Health + "HP";
+            FPHpLabel.Content = FirstPlayer.Health + "HP";
+
+            FPHealt.Value = 100;
+            SPHealt.Value = 100;
+
+            OnOffButtons(Comp.Children, false);
+            OnOffButtons(Hero.Children, true);
+        }
+        // Подключаем методы к событиям
+        private void Subscribe()
+        {
             FirstPlayer.Wound += DoSmth;
             FirstPlayer.Wound += Log;
             FirstPlayer.Block += DoSmth1;
             FirstPlayer.Block += Log;
             FirstPlayer.Death += Died;
             FirstPlayer.Death += Log;
-
             SecondPlayer.Wound += Log;
             SecondPlayer.Wound += DoSmth;
             SecondPlayer.Block += DoSmth1;
             SecondPlayer.Block += Log;
             SecondPlayer.Death += Died;
             SecondPlayer.Death += Log;
-
-            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
-            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
-
-            FPHealt.Value = 100;
-            SPHealt.Value = 100;
-
-            foreach (var item in Comp.Children)
+        }
+        private void OnOffButtons(UIElementCollection col, bool flag)
+        {
+            foreach (var item in col)
             {
                 if (item is Button b1)
                 {
-                    b1.IsEnabled = false;
-                }
-            }
-
-            foreach (var item in Hero.Children)
-            {
-                if (item is Button b2)
-                {
-                    b2.IsEnabled = true;
+                    b1.IsEnabled = flag;
                 }
             }
         }

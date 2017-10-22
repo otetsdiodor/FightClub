@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace FightClub
 {
+    // Части тела игрока
     public enum BodyParts
     {
         Head,
@@ -15,7 +16,7 @@ namespace FightClub
     
     public class Player
     {
-        private string Name; // Имя игрока
+        private string PlayerName; // Имя игрока
         private BodyParts Blocked; // Часть тела которую мы блокируем
         private int HealthPoint = 100; // Текущее кол-во ХП
         public const int ImpactForce = 25; // Дамаг которые наности какждая атака
@@ -29,31 +30,33 @@ namespace FightClub
 
         public Player(string Name)
         {
-            this.Name = Name;
+            PlayerName = Name;
         }
-        public string GetName()
+        public string Name
         {
-            return Name;
+            get => PlayerName;
+            set => PlayerName = value;
         }
-        public int GetHealth()
+        public int Health
         {
-            return HealthPoint;
+            get => HealthPoint;
+            set => HealthPoint = value;
         }
         public void GetHit(BodyParts bodyPart)
         {
             if (Blocked != bodyPart)
             {
                 HealthPoint -= ImpactForce;
-                Wound(this,new PlayerEventArgs(Name,HealthPoint,"получил урон"));
+                Wound(this,new PlayerEventArgs(PlayerName,HealthPoint,"получил урон"));
                 
                 if (HealthPoint <=0) //Проверить : а не мертвы ли мы?
                 {
-                    Death(this,new PlayerEventArgs(Name,HealthPoint,"умер"));
+                    Death(this,new PlayerEventArgs(PlayerName,HealthPoint,"умер"));
                 }
             }
             else
             {
-                Block(this, new PlayerEventArgs(Name,HealthPoint,"заблокировал урон"));
+                Block(this, new PlayerEventArgs(PlayerName,HealthPoint,"заблокировал урон"));
             }
         }
         public void SetBlock(BodyParts bodyPart)
