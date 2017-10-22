@@ -22,18 +22,25 @@ namespace FightClub
     {
         public Player FirstPlayer;
         public Player SecondPlayer;
+        public MediaPlayer Media;
 
         public MainWindow(string NameFirstPlayer,string NameSecondPlayer)
         {
             FirstPlayer = new Player(NameFirstPlayer);
             FirstPlayer.Wound += DoSmth;
+            FirstPlayer.Wound += Log;
             FirstPlayer.Block += DoSmth1;
+            FirstPlayer.Block += Log;
             FirstPlayer.Death += Died;
+            FirstPlayer.Death += Log;
 
             SecondPlayer = new Player(NameSecondPlayer);
+            SecondPlayer.Wound += Log;
             SecondPlayer.Wound += DoSmth;
             SecondPlayer.Block += DoSmth1;
+            SecondPlayer.Block += Log;
             SecondPlayer.Death += Died;
+            SecondPlayer.Death += Log;
             InitializeComponent();
 
             foreach (var item in Comp.Children)
@@ -47,6 +54,7 @@ namespace FightClub
             SPName.Content = NameSecondPlayer;
             SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
             FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
+            Media = new MediaPlayer();
         }
 
         private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
@@ -131,22 +139,37 @@ namespace FightClub
 
         private void DoSmth(object sender,PlayerEventArgs e)
         {
-            MessageBox.Show("Ай как больно то");
+            //MessageBox.Show("Ай как больно то");
+            Media.Open(new Uri(@"damage.wav", UriKind.Relative));
+            Media.Play();
         }
         private void DoSmth1(object sender, PlayerEventArgs e)
         {
-            MessageBox.Show("хрен попадёшь!!!!");
+            //MessageBox.Show("хрен попадёшь!!!!");
+            Media.Open(new Uri(@"def.wav", UriKind.Relative));
+            Media.Play();
         }
         private void Died(object sender, PlayerEventArgs e)
         {
-            if (true)
+            if (e.Name == FirstPlayer.GetName())
             {
-                MessageBox.Show("БРАТАН ЭТО ФИАСКО");
+                Media.Open(new Uri(@"lose.mp3",UriKind.Relative));
+                Media.Play();
+                MessageBox.Show("YOU LOSE","=(");
             }
             else
             {
-                MessageBox.Show("Юху ТЫ победИЛ");
+                Media.Open(new Uri(@"win.mp3", UriKind.Relative));
+                Media.Play();
+                MessageBox.Show("YOU WIN");
             }
+            Authorization au = new Authorization();
+            au.Show();
+            Close();
+        }
+        private void Log(object sender, PlayerEventArgs e)
+        {
+            LogBlock.Text += "Игрок " + e.Name + " " + e.Message + " - " + e.HealthPoint + "HP" + "\n";
         }
     }
 }
