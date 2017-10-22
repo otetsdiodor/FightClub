@@ -26,14 +26,14 @@
             <TextBlock Grid.Column="2" Grid.RowSpan="3"  TextWrapping="Wrap"></TextBlock>
         </Border>
         <StackPanel Grid.Row="2" x:Name="Hero">
-            <Button Margin="15" Height="60" Click="Button_Click">Head</Button>
-            <Button Margin="15" Height="60" Click="Button_Click">Body</Button>
-            <Button Margin="15" Height="60" Click="Button_Click">Legs</Button>
+            <Button Margin="15" Height="60" Click="DeffendYourBodyParts">Head</Button>
+            <Button Margin="15" Height="60" Click="DeffendYourBodyParts">Body</Button>
+            <Button Margin="15" Height="60" Click="DeffendYourBodyParts">Legs</Button>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" x:Name="Comp">
-            <Button Margin="15" Height="60">Head</Button>
-            <Button Margin="15" Height="60">Body</Button>
-            <Button Margin="15" Height="60">Legs</Button>
+            <Button Margin="15" Height="60" Click="AttackBodyParts">Head</Button>
+            <Button Margin="15" Height="60" Click="AttackBodyParts">Body</Button>
+            <Button Margin="15" Height="60" Click="AttackBodyParts">Legs</Button>
         </StackPanel>
 
     </Grid>

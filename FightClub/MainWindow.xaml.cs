@@ -29,10 +29,19 @@ namespace FightClub
             FirstPlayer.Block += DoSmth1;
             SecondPlayer.Wound += DoSmth;
             SecondPlayer.Block += DoSmth1;
+            FirstPlayer.Death += Died;
+            SecondPlayer.Death += Died;
             InitializeComponent();
+            foreach (var item in Comp.Children)
+            {
+                if (item is Button b1)
+                {
+                    b1.IsEnabled = false;
+                }
+            }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
         {
             Button b1 = (Button)sender;
             if ((string)b1.Content == "Head")
@@ -48,13 +57,54 @@ namespace FightClub
                 FirstPlayer.SetBlock(BodyParts.Legs);
             }
 
-            FirstPlayer.GetHit(AttackBot());
-
+            FirstPlayer.GetHit(ChoseBodyPaart());
+            FPHealt.Value = FirstPlayer.GetHealth();
             foreach (var item in Hero.Children)
             {
                 if (item is Button b)
                 {
                     b.IsEnabled = false;
+                }
+            }
+
+            foreach (var item in Comp.Children)
+            {
+                if (item is Button b3)
+                {
+                    b3.IsEnabled = true;
+                }
+            }
+        }
+        private void AttackBodyParts(object sender, RoutedEventArgs e)
+        {
+            SecondPlayer.SetBlock(ChoseBodyPaart());
+            Button b = (Button)sender;
+            if ((string)b.Content == "Head")
+            {
+                SecondPlayer.GetHit(BodyParts.Head);
+            }
+            if ((string)b.Content == "Body")
+            {
+                SecondPlayer.GetHit(BodyParts.Body);
+            }
+            if ((string)b.Content == "Legs")
+            {
+                SecondPlayer.GetHit(BodyParts.Legs);
+            }
+            SPHealt.Value = SecondPlayer.GetHealth();
+            foreach (var item in Hero.Children)
+            {
+                if (item is Button b2)
+                {
+                    b2.IsEnabled = true;
+                }
+            }
+
+            foreach (var item in Comp.Children)
+            {
+                if (item is Button b1)
+                {
+                    b1.IsEnabled = false;
                 }
             }
         }
@@ -69,11 +119,22 @@ namespace FightClub
 
         private void DoSmth(object sender,PlayerEventArgs e)
         {
-            MessageBox.Show("Ай как больно то сукааааа");
+            MessageBox.Show("Ай как больно то");
         }
         private void DoSmth1(object sender, PlayerEventArgs e)
         {
-            MessageBox.Show("Сасать уеба, хер попадёшь!!!!");
+            MessageBox.Show("хрен попадёшь!!!!");
+        }
+        private void Died(object sender, PlayerEventArgs e)
+        {
+            if (e.Name != "Bot228")
+            {
+                MessageBox.Show("БРАТАН ЭТО ФИАСКО");
+            }
+            else
+            {
+                MessageBox.Show("Юху ТЫ победИЛ");
+            }
         }
     }
 }

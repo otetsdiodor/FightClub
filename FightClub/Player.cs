@@ -17,8 +17,8 @@ namespace FightClub
     {
         private string Name; // Имя игрока
         private BodyParts Blocked; // Часть тела которую мы блокируем
-        private double HealthPoint = 100; // Текущее кол-во ХП
-        public const double ImpactForce = 25; // Дамаг которые наности какждая атака
+        private int HealthPoint = 100; // Текущее кол-во ХП
+        public const int ImpactForce = 25; // Дамаг которые наности какждая атака
 
         //ПРОВЕРЬ А МОЖНО ЛИ РАБОТАТЬ С ОДНИМ ДЕЛЕГАТОМ ДЛЯ ВСЕ СОБЫТИЙ
         public delegate void BlockDelegate(object sender, PlayerEventArgs e);
@@ -34,7 +34,10 @@ namespace FightClub
         {
             this.Name = Name;
         }
-
+        public int GetHealth()
+        {
+            return HealthPoint;
+        }
         public void GetHit(BodyParts bodyPart)
         {
             if (Blocked != bodyPart)
