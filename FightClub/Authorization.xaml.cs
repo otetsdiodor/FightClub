@@ -31,7 +31,7 @@ namespace FightClub
             {
                 Random r = new Random();
                 int i = r.Next(0, 13);
-                using (StreamReader fs = new StreamReader("nick.txt"))
+                using (StreamReader fs = new StreamReader(@"..\..\Res\nick.txt"))
                 {
                     int k = 0;
                     while (k <= i)

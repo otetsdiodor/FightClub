@@ -103,5 +103,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Res\damage.wav" />
+    <Content Include="Res\def.wav" />
+    <Content Include="Res\lose.mp3" />
+    <Resource Include="Res\nick.txt" />
+    <Content Include="Res\win.mp3" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

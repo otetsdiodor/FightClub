@@ -39,7 +39,7 @@
             <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Body</Button>
             <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Legs</Button>
         </StackPanel>
-        <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="40" FontWeight="Bold" FontSize="18">DEFEND</Label>
-        <Label Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" Margin="40" FontWeight="Bold" FontSize="18">ATTACK</Label>
+        <Label Margin="20" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Height="50" VerticalAlignment="Top">DEFEND</Label>
+        <Label Margin="20" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Height="50" VerticalAlignment="Top">ATTACK</Label>
     </Grid>
 </Window>

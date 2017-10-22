@@ -73,9 +73,6 @@ namespace FightClub
                 FirstPlayer.SetBlock(BodyParts.Legs);
             }
 
-            FirstPlayer.GetHit(ChoseBodyPaart());
-            FPHealt.Value = FirstPlayer.GetHealth();
-            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
             foreach (var item in Hero.Children)
             {
                 if (item is Button b)
@@ -91,6 +88,11 @@ namespace FightClub
                     b3.IsEnabled = true;
                 }
             }
+
+            FirstPlayer.GetHit(ChoseBodyPaart());
+            FPHealt.Value = FirstPlayer.GetHealth();
+            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
+
         }
         private void AttackBodyParts(object sender, RoutedEventArgs e)
         {
@@ -140,26 +142,26 @@ namespace FightClub
         private void DoSmth(object sender,PlayerEventArgs e)
         {
             //MessageBox.Show("Ай как больно то");
-            Media.Open(new Uri(@"damage.wav", UriKind.Relative));
+            Media.Open(new Uri(@"..\..\Res\damage.wav", UriKind.Relative));
             Media.Play();
         }
         private void DoSmth1(object sender, PlayerEventArgs e)
         {
             //MessageBox.Show("хрен попадёшь!!!!");
-            Media.Open(new Uri(@"def.wav", UriKind.Relative));
+            Media.Open(new Uri(@"..\..\Res\def.wav", UriKind.Relative));
             Media.Play();
         }
         private void Died(object sender, PlayerEventArgs e)
         {
             if (e.Name == FirstPlayer.GetName())
             {
-                Media.Open(new Uri(@"lose.mp3",UriKind.Relative));
+                Media.Open(new Uri(@"..\..\Res\lose.mp3", UriKind.Relative));
                 Media.Play();
                 MessageBox.Show("YOU LOSE","=(");
             }
             else
             {
-                Media.Open(new Uri(@"win.mp3", UriKind.Relative));
+                Media.Open(new Uri(@"..\..\Res\win.mp3", UriKind.Relative));
                 Media.Play();
                 MessageBox.Show("YOU WIN");
             }
