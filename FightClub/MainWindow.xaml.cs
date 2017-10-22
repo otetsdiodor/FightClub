@@ -20,18 +20,22 @@ namespace FightClub
     /// </summary>
     public partial class MainWindow : Window
     {
-        public Player FirstPlayer = new Player("otets");
-        public Player SecondPlayer = new Player("Bot228");
+        public Player FirstPlayer;
+        public Player SecondPlayer;
 
-        public MainWindow()
+        public MainWindow(string NameFirstPlayer,string NameSecondPlayer)
         {
+            FirstPlayer = new Player(NameFirstPlayer);
             FirstPlayer.Wound += DoSmth;
             FirstPlayer.Block += DoSmth1;
+            FirstPlayer.Death += Died;
+
+            SecondPlayer = new Player(NameSecondPlayer);
             SecondPlayer.Wound += DoSmth;
             SecondPlayer.Block += DoSmth1;
-            FirstPlayer.Death += Died;
             SecondPlayer.Death += Died;
             InitializeComponent();
+
             foreach (var item in Comp.Children)
             {
                 if (item is Button b1)
@@ -39,6 +43,8 @@ namespace FightClub
                     b1.IsEnabled = false;
                 }
             }
+            FPName.Content = NameFirstPlayer;
+            SPName.Content = NameSecondPlayer;
         }
 
         private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
@@ -127,7 +133,7 @@ namespace FightClub
         }
         private void Died(object sender, PlayerEventArgs e)
         {
-            if (e.Name != "Bot228")
+            if (true)
             {
                 MessageBox.Show("БРАТАН ЭТО ФИАСКО");
             }
