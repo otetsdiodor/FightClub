@@ -163,13 +163,52 @@ namespace FightClub
                 Media.Play();
                 MessageBox.Show("YOU WIN");
             }
-            Authorization au = new Authorization();
-            au.Show();
-            Close();
+            Restart();
         }
         private void Log(object sender, PlayerEventArgs e)
         {
             LogBlock.Text += "Игрок " + e.Name + " " + e.Message + " - " + e.HealthPoint + "HP" + "\n";
+        }
+        private void Restart()
+        {
+            FirstPlayer = new Player(FirstPlayer.GetName());
+            SecondPlayer = new Player(SecondPlayer.GetName());
+
+            FirstPlayer.Wound += DoSmth;
+            FirstPlayer.Wound += Log;
+            FirstPlayer.Block += DoSmth1;
+            FirstPlayer.Block += Log;
+            FirstPlayer.Death += Died;
+            FirstPlayer.Death += Log;
+
+            SecondPlayer.Wound += Log;
+            SecondPlayer.Wound += DoSmth;
+            SecondPlayer.Block += DoSmth1;
+            SecondPlayer.Block += Log;
+            SecondPlayer.Death += Died;
+            SecondPlayer.Death += Log;
+
+            SPHpLabel.Content = SecondPlayer.GetHealth() + "HP";
+            FPHpLabel.Content = FirstPlayer.GetHealth() + "HP";
+
+            FPHealt.Value = 100;
+            SPHealt.Value = 100;
+
+            foreach (var item in Comp.Children)
+            {
+                if (item is Button b1)
+                {
+                    b1.IsEnabled = false;
+                }
+            }
+
+            foreach (var item in Hero.Children)
+            {
+                if (item is Button b2)
+                {
+                    b2.IsEnabled = true;
+                }
+            }
         }
     }
 }

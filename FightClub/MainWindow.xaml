@@ -25,7 +25,9 @@
         <Label x:Name="SPHpLabel" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"></Label>
         <Border BorderThickness="0,0,1,0" Grid.RowSpan="3" BorderBrush="Black"></Border>
         <Border BorderThickness="1" BorderBrush="Black" Grid.Column="2" Grid.RowSpan="3" Margin="20">
-            <TextBlock Grid.Column="2" Grid.RowSpan="3"  TextWrapping="Wrap" x:Name="LogBlock"></TextBlock>
+            <ScrollViewer>
+                <TextBlock Grid.Column="2" Grid.RowSpan="3"  TextWrapping="Wrap" x:Name="LogBlock"></TextBlock>
+            </ScrollViewer>
         </Border>
         <StackPanel Grid.Row="2" x:Name="Hero">
             <Button Margin="15,80,15,5" Height="60" Click="DeffendYourBodyParts">Head</Button>
@@ -37,6 +39,7 @@
             <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Body</Button>
             <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Legs</Button>
         </StackPanel>
-
+        <Label Grid.Row="2" HorizontalContentAlignment="Center" Margin="40" FontWeight="Bold" FontSize="18">DEFEND</Label>
+        <Label Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" Margin="40" FontWeight="Bold" FontSize="18">ATTACK</Label>
     </Grid>
 </Window>
