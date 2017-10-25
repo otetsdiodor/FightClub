@@ -30,14 +30,14 @@
             </ScrollViewer>
         </Border>
         <StackPanel Grid.Row="2" x:Name="Hero">
-            <Button Margin="15,80,15,5" Height="60" Click="DeffendYourBodyParts">Head</Button>
-            <Button Margin="15,0,15,5" Height="60" Click="DeffendYourBodyParts">Body</Button>
-            <Button Margin="15,0,15,5" Height="60" Click="DeffendYourBodyParts">Legs</Button>
+            <Button Margin="15,80,15,5" Height="60" >Head</Button>
+            <Button Margin="15,0,15,5" Height="60" >Body</Button>
+            <Button Margin="15,0,15,5" Height="60" >Legs</Button>
         </StackPanel>
         <StackPanel Grid.Row="2" Grid.Column="1" x:Name="Comp">
-            <Button Margin="15,80,15,5" Height="60" Click="AttackBodyParts">Head</Button>
-            <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Body</Button>
-            <Button Margin="15,0,15,5" Height="60" Click="AttackBodyParts">Legs</Button>
+            <Button Margin="15,80,15,5" Height="60">Head</Button>
+            <Button Margin="15,0,15,5" Height="60">Body</Button>
+            <Button Margin="15,0,15,5" Height="60">Legs</Button>
         </StackPanel>
         <Label Margin="40" Grid.Row="2" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Height="50" VerticalAlignment="Top">DEFEND</Label>
         <Label Margin="40" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" FontWeight="Bold" FontSize="18" Height="50" VerticalAlignment="Top">ATTACK</Label>

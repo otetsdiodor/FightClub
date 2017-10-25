@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace FightClub
 {
@@ -14,7 +16,7 @@ namespace FightClub
         Legs
     }
     
-    public class Player
+    public class Player : INotifyPropertyChanged
     {
         private string PlayerName; // Имя игрока
         private BodyParts Blocked; // Часть тела которую мы блокируем
@@ -23,10 +25,15 @@ namespace FightClub
 
         //Delegate for my events
         public delegate void MyDelegate(object sender, PlayerEventArgs e);
-
         public event MyDelegate Block; // Атака заблокирована
         public event MyDelegate Wound; // Атака пропущена , урон получен
         public event MyDelegate Death; // Вы умерли =(
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        public void OnPropertyChanged([CallerMemberName]string prop = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
 
         public Player(string Name)
         {

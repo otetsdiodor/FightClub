@@ -19,7 +19,7 @@
             <Label VerticalAlignment="Top" Margin="5">Name</Label>
             <TextBox Width="100" Height="25" VerticalAlignment="Top" Margin="5" x:Name="InputName"></TextBox>
         </StackPanel>
-        <Button Grid.Row="1" Height="30" Margin="20" Click="Button_Click">Start Game</Button>
+        <Button Grid.Row="1" Height="30" Margin="20" x:Name="StartGameBtn">Start Game</Button>
         <TextBlock Grid.Column="1" TextWrapping="Wrap" Margin="15">Enter your nickname to start the game</TextBlock>
     </Grid>
 </Window>

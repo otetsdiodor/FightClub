@@ -1,45 +1,52 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
-namespace FightClub
+namespace FightClub.Presentor
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+    class MainWindowPresenter
     {
-        // Объекты двух игроков
-        public Player FirstPlayer;
-        public Player SecondPlayer;
-        // Плеер для воспроизведения звуков
-        public MediaPlayer Media;
+        Player FirstPlayer = null;
+        Player SecondPlayer = null;
+        MainWindow MainWindow = null;
+        public MediaPlayer Media = null;
 
-        public MainWindow(string NameFirstPlayer,string NameSecondPlayer)
+        public MainWindowPresenter(MainWindow mainWindow,string firstName,string secondName)
         {
-            FirstPlayer = new Player(NameFirstPlayer);
-            SecondPlayer = new Player(NameSecondPlayer);
-            Subscribe();
-            InitializeComponent();
-            OnOffButtons(Comp.Children, false);
-            FPName.Content = NameFirstPlayer;
-            SPName.Content = NameSecondPlayer;
-            SPHpLabel.Content = SecondPlayer.Health + "HP";
-            FPHpLabel.Content = FirstPlayer.Health + "HP";
+            MainWindow = mainWindow;
+            FirstPlayer = new Player(firstName);
+            SecondPlayer = new Player(secondName);
             Media = new MediaPlayer();
+            Subscribe();
+            OnOffButtons(MainWindow.Comp.Children, false);
+            MainWindow.FPName.Content = firstName;
+            MainWindow.SPName.Content = secondName;
+            MainWindow.SPHpLabel.Content = SecondPlayer.Health + "HP";
+            MainWindow.FPHpLabel.Content = FirstPlayer.Health + "HP";
+            foreach (var item in MainWindow.Hero.Children)
+            {
+                if (item is Button b)
+                {
+                    b.Click += DeffendYourBodyParts;
+                }
+            }
+            foreach (var item in MainWindow.Comp.Children)
+            {
+                if (item is Button b)
+                {
+                    b.Click += AttackBodyParts;
+                }
+            }
+            MainWindow.Closing += Close;
         }
-        // Защита от врага
+
+        private void Close(object sender, CancelEventArgs e)
+        {
+            DeSubcsribe();
+        }
+
         private void DeffendYourBodyParts(object sender, RoutedEventArgs e)
         {
             Button b1 = (Button)sender;
@@ -56,12 +63,12 @@ namespace FightClub
                 FirstPlayer.SetBlock(BodyParts.Legs);
             }
 
-            OnOffButtons(Hero.Children, false);
-            OnOffButtons(Comp.Children, true);
+            OnOffButtons(MainWindow.Hero.Children, false);
+            OnOffButtons(MainWindow.Comp.Children, true);
 
             FirstPlayer.GetHit(ChoseBodyPaart());
-            FPHealt.Value = FirstPlayer.Health;
-            FPHpLabel.Content = FirstPlayer.Health + "HP";
+            MainWindow.FPHealt.Value = FirstPlayer.Health;
+            MainWindow.FPHpLabel.Content = FirstPlayer.Health + "HP";
 
         }
         //Атакуем врага
@@ -82,11 +89,11 @@ namespace FightClub
                 SecondPlayer.GetHit(BodyParts.Legs);
             }
 
-            SPHealt.Value = SecondPlayer.Health;
-            SPHpLabel.Content = SecondPlayer.Health + "HP";
+            MainWindow.SPHealt.Value = SecondPlayer.Health;
+            MainWindow.SPHpLabel.Content = SecondPlayer.Health + "HP";
 
-            OnOffButtons(Hero.Children, true);
-            OnOffButtons(Comp.Children, false);
+            OnOffButtons(MainWindow.Hero.Children, true);
+            OnOffButtons(MainWindow.Comp.Children, false);
         }
 
         // Random chose body part for bot
@@ -97,7 +104,7 @@ namespace FightClub
             return (BodyParts)x;
         }
 
-        private void DoSmth(object sender,PlayerEventArgs e)
+        private void DoSmth(object sender, PlayerEventArgs e)
         {
             Media.Open(new Uri(@"..\..\Res\damage.wav", UriKind.Relative));
             Media.Play();
@@ -113,7 +120,7 @@ namespace FightClub
             {
                 Media.Open(new Uri(@"..\..\Res\lose.mp3", UriKind.Relative));
                 Media.Play();
-                MessageBox.Show("YOU LOSE","=(");
+                MessageBox.Show("YOU LOSE", "=(");
             }
             else
             {
@@ -121,11 +128,12 @@ namespace FightClub
                 Media.Play();
                 MessageBox.Show("YOU WIN");
             }
+            DeSubcsribe();
             Restart();
         }
         private void Log(object sender, PlayerEventArgs e)
         {
-            LogBlock.Text += "Игрок " + e.Name + " " + e.Message + " - " + e.HealthPoint + "HP" + "\n";
+            MainWindow.LogBlock.Text += "Игрок " + e.Name + " " + e.Message + " - " + e.HealthPoint + "HP" + "\n";
         }
         private void Restart()
         {
@@ -133,14 +141,14 @@ namespace FightClub
             SecondPlayer = new Player(SecondPlayer.Name);
             Subscribe();
 
-            SPHpLabel.Content = SecondPlayer.Health + "HP";
-            FPHpLabel.Content = FirstPlayer.Health + "HP";
+            MainWindow.SPHpLabel.Content = SecondPlayer.Health + "HP";
+            MainWindow.FPHpLabel.Content = FirstPlayer.Health + "HP";
 
-            FPHealt.Value = 100;
-            SPHealt.Value = 100;
+            MainWindow.FPHealt.Value = 100;
+            MainWindow.SPHealt.Value = 100;
 
-            OnOffButtons(Comp.Children, false);
-            OnOffButtons(Hero.Children, true);
+            OnOffButtons(MainWindow.Comp.Children, false);
+            OnOffButtons(MainWindow.Hero.Children, true);
         }
         // Подключаем методы к событиям
         private void Subscribe()
@@ -157,6 +165,21 @@ namespace FightClub
             SecondPlayer.Block += Log;
             SecondPlayer.Death += Died;
             SecondPlayer.Death += Log;
+        }
+        private void DeSubcsribe()
+        {
+            FirstPlayer.Wound -= DoSmth;
+            FirstPlayer.Wound -= Log;
+            FirstPlayer.Block -= DoSmth1;
+            FirstPlayer.Block -= Log;
+            FirstPlayer.Death -= Died;
+            FirstPlayer.Death -= Log;
+            SecondPlayer.Wound -= Log;
+            SecondPlayer.Wound -= DoSmth;
+            SecondPlayer.Block -= DoSmth1;
+            SecondPlayer.Block -= Log;
+            SecondPlayer.Death -= Died;
+            SecondPlayer.Death -= Log;
         }
         private void OnOffButtons(UIElementCollection col, bool flag)
         {
