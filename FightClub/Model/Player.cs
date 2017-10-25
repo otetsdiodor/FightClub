@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace FightClub
+﻿namespace FightClub
 {
     // Части тела игрока
     public enum BodyParts
@@ -16,24 +8,18 @@ namespace FightClub
         Legs
     }
     
-    public class Player : INotifyPropertyChanged
+    public class Player
     {
-        private string PlayerName; // Имя игрока
-        private BodyParts Blocked; // Часть тела которую мы блокируем
-        private int HealthPoint = 100; // Текущее кол-во ХП
-        public const int ImpactForce = 25; // Дамаг которые наности какждая атака
+        private string PlayerName;
+        private BodyParts Blocked; 
+        private int HealthPoint = 100; 
+        public const int ImpactForce = 25; // Damage that is dealt
 
         //Delegate for my events
         public delegate void MyDelegate(object sender, PlayerEventArgs e);
-        public event MyDelegate Block; // Атака заблокирована
-        public event MyDelegate Wound; // Атака пропущена , урон получен
-        public event MyDelegate Death; // Вы умерли =(
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName]string prop = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
+        public event MyDelegate Block; 
+        public event MyDelegate Wound; 
+        public event MyDelegate Death; 
 
         public Player(string Name)
         {

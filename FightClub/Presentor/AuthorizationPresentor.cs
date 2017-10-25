@@ -1,25 +1,19 @@
 ﻿using System;
 using System.Windows;
 using System.IO;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using FightClub.Presentor;
-
 
 namespace FightClub.Presentor
 {
-    class AuthorizationPresentor //: INotifyPropertyChanged
+    class AuthorizationPresentor 
     {
         Authorization Authorization;
         public AuthorizationPresentor(Authorization authorization)
         {
             Authorization = authorization;
-            Authorization.StartGameBtn.Click += method;
+            Authorization.StartGameBtn.Click += MainWindowBtnLoad;
         }
 
-        //public event PropertyChangedEventHandler PropertyChanged;
-
-        public void method(object sender,RoutedEventArgs e)
+        public void MainWindowBtnLoad(object sender,RoutedEventArgs e)
         {
             if (!string.IsNullOrEmpty(Authorization.InputName.Text))
             {
